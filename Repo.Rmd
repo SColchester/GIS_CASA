@@ -4,6 +4,7 @@ output:
   html_document: default
 ---
 ```{r}
+#THIS IS THE PRACTICAL
 library(tidyverse)
 library(geojsonio)
 library(sf)

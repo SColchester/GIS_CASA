@@ -16,7 +16,6 @@ output:
     toc_depth: '2'
   html_document:
     df_print: paged
-    number_sections: yes
     theme: readable
     toc: yes
     toc_depth: '2'
@@ -25,10 +24,11 @@ output:
     toc_depth: '2'
 ---
 
-TEXT TEXT TEXT 
+Figure 1 was built entirely using GUI based software ArcMap. This map used data from a variety of different sources. Used the Ordnance Survey’s Master Map for land use (principally the coniferous and broadleaf forestry). Land Cover vector data (2015), contains a huge amount of detail. The shapefiles (forests) had been divided into small areas, used the dissolve tool to combine them so that total forest size is correct. This also had the effect of merging all of the separate polygons into only one row in the attribute table. Resolved this by using the Edit > Advanced Editing > Explode tool. 
 
 ![Figure 1 - Map made with GUI (ArcMap)](Images/Powys-forestry.jpg)
-```{r}
+```{r message=FALSE, warning=FALSE}
+
 library(maptools) 
 library(RColorBrewer) 
 library(sp) 
@@ -64,4 +64,7 @@ MAP <- tm_shape(powys.OA.datamap) +
     bg.color = "grey85",
     inner.margins = 0.1)
 ```
-![Figure 2 - Map made with programming (R)](Images/CarownershipPowys.png)
+
+Figure 2 was created entirely within the confines of RStudio. 
+
+![Figure 2 - Map made with command line (R)](Images/CarownershipPowys.png)
