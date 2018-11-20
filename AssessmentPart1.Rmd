@@ -1,4 +1,33 @@
 ---
+title: "Assessment Part One"
+author: "Sam Colchester"
+date: "20/11/18"
+output:
+  html_notebook:
+    fig_caption: yes
+    fig_height: 4
+    fig_width: 5
+    number_sections: yes
+    theme: readable
+    toc: yes
+    toc_depth: 2
+  pdf_document:
+    toc: yes
+    toc_depth: '2'
+  html_document:
+    df_print: paged
+    number_sections: yes
+    theme: readable
+    toc: yes
+    toc_depth: '2'
+  word_document:
+    toc: yes
+    toc_depth: '2'
+---
+
+TEXT TEXT TEXT 
+
+![Figure 1 - Map made with GUI (ArcMap)](Images/Powys-forestry.jpg)
 ```{r}
 library(maptools) 
 library(RColorBrewer) 
@@ -10,10 +39,8 @@ library(sf)
 library(rgdal)
 #Reading the Shapefile for the entirety of England and Wales
 EngWal.OA <- read_shape("OAEngWal/Output_Area_December_2011_Generalised_Clipped_Boundaries_in_England_and_Wales.shp", as.sf = T)
-#W06000023 is the tag for OAs in Powys - the Welsh County of interest
+#Selecting just Powys OAs with tag "W06000023"
 powys.OA <- EngWal.OA[grep("^W06000023", EngWal.OA$lad11cd),]
-#Base plot function to check grep has worked
-qtm(powys.OA)
 #Import census data
 carownership <- read.csv("KS404EWDATA.CSV", header = T, sep = ",")
 #Joining census data
@@ -21,7 +48,7 @@ powys.OA.datamap <- append_data(powys.OA, carownership, key.shp = "oa11cd", key.
 #Simplifying the the car/van ownership column reference
 own <- "KS404EW0008"
 #Plotting using the car/van ownership column
-tm_shape(powys.OA.datamap) +
+MAP <- tm_shape(powys.OA.datamap) +
   tm_polygons(own, 
               breaks = c(0, 2, 4, 6, 8, 10, Inf), 
               palette = "Oranges", 
@@ -36,3 +63,5 @@ tm_shape(powys.OA.datamap) +
     legend.text.size = 0.6,
     bg.color = "grey85",
     inner.margins = 0.1)
+```
+![Figure 2 - Map made with programming (R)](Images/CarownershipPowys.png)
