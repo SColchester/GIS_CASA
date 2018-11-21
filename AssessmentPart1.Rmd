@@ -7,26 +7,21 @@ output:
     fig_caption: yes
     fig_height: 4
     fig_width: 5
-    number_sections: yes
-    theme: readable
-    toc: yes
-    toc_depth: 2
-  pdf_document:
-    toc: yes
-    toc_depth: '2'
+    theme: flatly
   html_document:
     df_print: paged
     theme: readable
-    toc: yes
-    toc_depth: '2'
-  word_document:
-    toc: yes
-    toc_depth: '2'
 ---
 
-Figure 1 was built entirely using GUI based software ArcMap. This map used data from a variety of different sources. Used the Ordnance Survey’s Master Map for land use (principally the coniferous and broadleaf forestry). Land Cover vector data (2015), contains a huge amount of detail. The shapefiles (forests) had been divided into small areas, used the dissolve tool to combine them so that total forest size is correct. This also had the effect of merging all of the separate polygons into only one row in the attribute table. Resolved this by using the Edit > Advanced Editing > Explode tool. 
+Figure 1 was built entirely using GUI based software ArcMap. This map attempts to communicate the varying visitor numbers to forestry in Powys. The other map elements intend to contextualise these figures. 
 
-![Figure 1 - Map made with GUI (ArcMap)](Images/Powys-forestry.jpg)
+Data on forestry visitors, the key metric, was difficult to track down. Given its rarity, compromises had to be made. The data is from an old survey (2004) which used a limited sample, thereby the majority of the forests on the map have missing visitor numbers. Nonetheless, it is from a reputable source (Forestry Commission) and has detailed metrics for the forests that were surveyed. 
+
+Attempts have been made to foreground the most important parts of this map by assigning darker colours to the focus land use (coniferous forestry) and making the symbolisation for forestry visitors ‘pop’ out the page with vibrant colour. Urban areas, roads and national parks, although potentially important for influencing forestry visitor counts have been given more muted colours and hues in order to recede their prominence. 
+
+Playing with colours and symbolisation is can be done fairly quickly with GUI based mapping software, click and slide. Adding multiple layers and an inset map also intuitive. However, some of the procedures that come near the start of the map making process can be fairly time consuming and processing heavy. Loading very large shapefiles (covering the entire UK) just to make a selection of them is time consuming. Selection tools also take some time to run. The same issues not present when using a programming line. 
+
+![Figure 2 - Map made with GUI (ArcMap)](Images/Powys-forestry.jpg)
 ```{r message=FALSE, warning=FALSE}
 
 library(maptools) 
@@ -65,6 +60,13 @@ MAP <- tm_shape(powys.OA.datamap) +
     inner.margins = 0.1)
 ```
 
-Figure 2 was created entirely within the confines of RStudio. 
+Figure 2 was created with RStudio. This map used both open data and open software in its production and is much simpler than Figure 1. It shows how car ownership varies over space in the same study area (Powys) as above. It is loosely linked to the first map by displaying another element that may be contributing to the variation of forestry visitors in Powys. 
+
+Data wrangling, making selections and joining data are all much more effective using R because the objects being manipulated are not continually visualised (as they are in GUIs). The command line also processes these operations much faster than running the same tools in a GUI. This was particularly useful in this case because the raw data files, as retrieved online, were fairly large and it was useful to focus the scale of analysis as soon as possible. 
+
+Nonetheless, there are some disadvantages to using a command line. Many of the mapmaking procedures that occur nearer the end of the whole process are time-consuming and fiddly within a command line interface. For example, something as simple (but important) as altering a font or typeface can be carried out intuitively and quickly within a GUI. To perform the same formatting alterations in a command line the code has to be learned or searched online and this can be time consuming. However, as familiarity with R increases this is likely to be less of an issue.
+
+Figure 2 is slightly deceptive in its presentation of the data. Most of the Output Areas (OAs) on this map actually have higher values than the range captured in the legend. Average car ownership is closer to 20% in Powys. Numerous OA values are not visible because they are clustered in urban areas and are too small to be legible. Using natural breaks (Jenks) put almost all of the large rural OAs into a single category and the map came out almost monotone. Custom (low) categories were thereby chosen to highlight variation in rural areas. 
+
 
 ![Figure 2 - Map made with command line (R)](Images/CarownershipPowys.png)
