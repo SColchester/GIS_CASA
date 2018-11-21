@@ -10,7 +10,7 @@ output:
     theme: flatly
   html_document:
     df_print: paged
-    theme: readable
+    theme: flatly
 ---
 
 Figure 1 was built entirely using GUI based software ArcMap. This map attempts to communicate the varying visitor numbers to forestry in Powys. The other map elements intend to contextualise these figures. 
